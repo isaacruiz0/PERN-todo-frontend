@@ -1,8 +1,65 @@
-import React from 'react'
+import {Fragment, useState} from 'react'
 
-function EditTodos() {
+function EditTodos({todo}) {
+
+  const editText = async (id) =>{
+    try{
+      const body = {description}
+      const response = await fetch(`http://localhost:5000/todos/${id}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(body)
+      })
+      console.log(id)
+      console.log(response)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const [description, setDescription] = useState(todo.description)
   return (
-    <div>EditTodos</div>
+    <Fragment>
+<button 
+  type="button" 
+  className="btn btn-warning" 
+  data-toggle="modal" 
+  data-target={`#id${todo.todo_id}`}
+  >
+  Edit
+</button>
+
+<div className="modal" id={`id${todo.todo_id}`}>
+  <div className="modal-dialog">
+    <div className="modal-content">
+
+      <div className="modal-header">
+        <h4 className="modal-title">Edit Todo</h4>
+        <button type="button" className="close" data-dismiss="modal">&times;</button>
+      </div>
+
+    <div className="modal-body">
+      <input 
+        type="text"
+        value={description}
+        className='form-control'
+        onChange={e => setDescription(e.target.value)}
+        />
+        
+    </div>
+
+      <div className="modal-footer">
+      <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#myModal"   onClick={()=>editText(todo.todo_id)}
+>
+        Edit
+      </button>
+        <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+    </Fragment>
   )
 }
 
