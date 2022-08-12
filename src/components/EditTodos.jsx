@@ -10,8 +10,8 @@ function EditTodos({todo}) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(body)
       })
-      console.log(id)
-      console.log(response)
+      setDescription(description)
+      window.location = '/';
     }catch(err){
       console.log(err)
     }
@@ -29,13 +29,13 @@ function EditTodos({todo}) {
   Edit
 </button>
 
-<div className="modal" id={`id${todo.todo_id}`}>
+<div className="modal" id={`id${todo.todo_id}`} onClick={()=>setDescription(todo.description)}>
   <div className="modal-dialog">
     <div className="modal-content">
 
       <div className="modal-header">
         <h4 className="modal-title">Edit Todo</h4>
-        <button type="button" className="close" data-dismiss="modal">&times;</button>
+        <button type="button" className="close" data-dismiss="modal" onClick={()=>setDescription(todo.description)}>&times;</button>
       </div>
 
     <div className="modal-body">
@@ -49,11 +49,10 @@ function EditTodos({todo}) {
     </div>
 
       <div className="modal-footer">
-      <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#myModal"   onClick={()=>editText(todo.todo_id)}
->
+      <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#myModal"   onClick={()=>editText(todo.todo_id)}>
         Edit
       </button>
-        <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>setDescription(todo.description)}>Close</button>
       </div>
 
     </div>
